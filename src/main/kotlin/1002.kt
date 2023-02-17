@@ -15,17 +15,23 @@ fun main() {
     for(i in 0 until t){
         val a = array[i][2] + array[i][5] //조규현와 류재명, 백승환와 류재명 거리의 합
         val b = distance(plusorminus(array[i][0],array[i][3]),plusorminus(array[i][1],array[i][4])) //조규현과 백승환의 거리
-        if(array[i][2] < array[i][5]){
-            max = array[i][5]
-            min = array[i][2]
-        } else {
-            max = array[i][2]
-            min = array[i][5]
+        if(b < array[i][2] || b < array[i][5]){ //내접
+            if(array[i][0] == array[i][3] && array[i][1] == array[i][4] && array[i][2] == array[i][5]){
+                println(-1)
+            } else if(b < abs(array[i][2] - array[i][5])){
+                println(0)
+            } else if(b == abs(array[i][2] - array[i][5])){
+                println(1)
+            }
+        } else { //외접
+            if(b == a){
+                println(1)
+            } else if(b > a){
+                println(0)
+            } else{
+                println(2)
+            }
         }
-        if(max > b+min)
-            println(0)
-        else
-            println(getananswer(a,b))
     }
 }
 
@@ -43,17 +49,5 @@ fun plusorminus(a: Int, b: Int): Int{
     } else {
         abs(a); abs(b)
         abs(a+b)
-    }
-}
-
-//a는 조규현와 류재명, 백승환와 류재명 거리의 합
-//b는 조규현과 백승환의 거리
-fun getananswer(a: Int, b: Int): Int{
-    return if(a == b){
-        1
-    } else if(a > b){
-        2
-    } else {
-        0
     }
 }
